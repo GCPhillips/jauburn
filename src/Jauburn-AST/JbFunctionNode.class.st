@@ -18,6 +18,16 @@ JbFunctionNode >> body: anObject [
 	body := anObject
 ]
 
+{ #category : #api }
+JbFunctionNode >> evaluateIn: environment [
+
+	^ JbFunction new 
+		 body: self body;
+		 parameters: self parameters;
+		 environment: environment;
+		 yourself.
+]
+
 { #category : #accessing }
 JbFunctionNode >> parameters [
 	^ parameters

@@ -8,6 +8,16 @@ Class {
 	#category : #'Jauburn-AST-Core'
 }
 
+{ #category : #Extensions }
+JbAssignmentStatementNode >> evaluateIn: anEnvironment [
+	^ self executeIn: anEnvironment 
+]
+
+{ #category : #Extensions }
+JbAssignmentStatementNode >> executeIn: anEnvironment [
+	anEnvironment lookupAt: identifier put: (expression evaluateIn: anEnvironment)
+]
+
 { #category : #accessing }
 JbAssignmentStatementNode >> expression [
 	^ expression

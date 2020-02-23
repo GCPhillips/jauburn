@@ -30,7 +30,15 @@ JbFunction >> body: anObject [
 JbFunction >> call: arguments in: callEnvironment [
 	"You need to implement this method!  arguments will contain the arguments to pass to this function and callEnvironment will contain the environment in place when this function was called."
 	
-	self shouldBeImplemented 
+	| applicationEnvironment |
+
+applicationEnvironment := JbEnvironment 
+	newFromKeys: (self parameters collect: [ :each | each identifier]) 
+	andValues: arguments.
+applicationEnvironment outerEnvironment: callEnvironment.
+
+body allButLast do: [ :each | each executeIn: applicationEnvironment ].
+^ body last executeIn: applicationEnvironment
 ]
 
 { #category : #accessing }
